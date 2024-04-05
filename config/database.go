@@ -2,18 +2,15 @@ package config
 
 import (
 	"boilerplate/helper"
-	"context"
 	"fmt"
 
-	"github.com/redis/go-redis/v9"
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
 var (
-	DB          *gorm.DB
-	RedisClient *redis.Client
+	DB *gorm.DB
 )
 
 type DBConfig struct {
@@ -23,12 +20,6 @@ type DBConfig struct {
 	Username string
 	Password string
 	Database string
-}
-
-type RedisConfig struct {
-	Host     string
-	Port     string
-	Password string
 }
 
 func InitDB(dbConfig DBConfig) {
@@ -64,24 +55,5 @@ func InitDB(dbConfig DBConfig) {
 	DB, err = gorm.Open(dialect, &gorm.Config{})
 	if err != nil {
 		helper.LogError(err)
-	}
-}
-
-func InitRedis(redisConfig RedisConfig) {
-	ctx := context.Background() // Konteks untuk operasi-operasi Redis
-
-	if redisConfig.Password == "null" {
-		redisConfig.Password = ""
-	}
-
-	RedisClient = redis.NewClient(&redis.Options{
-		Addr:     redisConfig.Host + ":" + redisConfig.Port,
-		Password: redisConfig.Password,
-		DB:       0,
-	})
-
-	_, err := RedisClient.Ping(ctx).Result()
-	if err != nil {
-		helper.LogError(fmt.Errorf("Error connecting to Redis: \n%s", err))
 	}
 }
