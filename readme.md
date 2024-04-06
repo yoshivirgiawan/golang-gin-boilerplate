@@ -15,33 +15,41 @@ Project structure:
 
 ```
 app
-├── config
-│   └── config.go
-├── databases
-│   └── 1_create_users_table.sql
-├── helper
-│   ├── api_response.go
-│   ├── errors_log.go
-│   └── env.go
-├── middlewares
-│   ├── auth_middleware.go
-│   └── request_logger.go
+├── http
+│   ├── controllers
+│       ├── v1
+│           ├── user_controller.go
+│   ├── middlewares
+│       ├── auth_middleware.go
+│       ├── request_logger.go
 ├── modules
-│   └── auth
-│       └── jwtgenerator
-│           └── jwtgenerator.go
-│   └── user
+│   ├── auth
+│       ├── service.go
+│   ├── jwtgenerator
+│       ├── jwtgenerator.go
+│   ├── user
 │       ├── entity.go
 │       ├── formatter.go
 │       ├── input.go
 │       ├── repository.go
-│       └── service.go
-├── routes
-│   ├── routes.go
-│   └── v1
-│       └── routes_v1.go
-└── storage
-└── .env.example
+│       ├── service.go
+config
+├── config.go
+databases
+├── 1_create_users_table.sql
+helper
+├── api_response.go
+├── errors_log.go
+├── env.go
+routes
+├── routes.go
+├── v1
+    ├── routes_v1.go
+storage
+├── logs
+    ├── api
+    ├── errors
+.env.example
 ```
 
 # Steps
